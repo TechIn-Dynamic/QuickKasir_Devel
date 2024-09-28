@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+    background-color: #f2f1f2;
+}
+
+@layer base {
+    @font-face {
+      font-family: 'lexend';
+      src: url(/public/fonts/Lexend_Exa/static/LexendExa-Regular.ttf) format('woff2');
+    }
+    @font-face {
+      font-family: 'Itim';
+      src: url(/public/fonts/Itim/Itim-Regular.ttf) format('woff2');
+    }
+    @font-face {
+      font-family: 'Inrians';
+      src: url(/public/fonts/Inria_Sans/InriaSans-Bold.ttf) format('woff2');
+    }
+    @font-face {
+      font-family: 'Inder';
+      src: url(/public/fonts/Inder/Inder-Regular.ttf) format('woff2');
+    }
+  }
+
+.lexend{
+  font-family: 'lexend';
+}
+
+.itim{
+  font-family: 'Itim';
+}
+
+.inrians{
+  font-family: 'Itim';
+}
+
+.inder{
+  font-family: 'Inder';
+}
+
+::-webkit-scrollbar {
+  height: 2px;
+} 
