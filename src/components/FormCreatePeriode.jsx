@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import CONFIG from "../config/config.json";
-import axios from "axios";
 import formatDateToInput from "../helpers/HelperFunction";
+import { savePeriodeData } from "../services/MasterPeriodeServices";
 
 const FormCreatePeriode = ({ isFormOpen = true }) => {
     const [formData, setFormData] = useState({
@@ -48,27 +47,18 @@ const FormCreatePeriode = ({ isFormOpen = true }) => {
         if (!validateForm()) return;
 
         setLoading(true);
-        const token = localStorage.getItem("token");
 
         try {
-            const response = await axios.post(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PERIODE}`, {
-                name: formData.periodeName,
-                date_start: formData.periodeFrom,
-                date_end: formData.periodeTo
-            }, {
-                headers: {
-                    Authorization: `Bearer ${token}`
-                }
-            });
-            // console.log("Response:", response.data);
+            await savePeriodeData(formData);
             setIsOpen(false);
         } catch (error) {
             console.error("Error:", error.response ? error.response.data : error.message);
-            setError("Failed to create periode. Please try again.");
+            setError(error.response.data.message);
         } finally {
             setLoading(false);
         }
     };
+
 
     if (!isOpen) return null;
     return (
