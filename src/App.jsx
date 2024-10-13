@@ -11,6 +11,7 @@ function App() {
       <Router basename='/QuickKasir/devel/'>
         <Routes>
           <Route path='/' element={<KasirPage />}></Route>
+          <Route path='/test' element={<FormCreatePeriode />}></Route>
         </Routes>
       </Router>
     </>
