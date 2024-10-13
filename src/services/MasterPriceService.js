@@ -1,11 +1,11 @@
 import axios from "axios";
 import CONFIG from "../config/config.json";
 
-const token = localStorage.getItem("token") || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGV2ZWwiOiJhZG1pbiIsImlhdCI6MTcyODczODEyNCwiZXhwIjoxNzI5MzQyOTI0fQ.bo5BDPzJP_WaFOBLt3SxHBbJ7ozUujReP8zl5kUQJk0';
+const token = localStorage.getItem("token") || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGV2ZWwiOiJhZG1pbiIsImlhdCI6MTcyODgwNjkzMSwiZXhwIjoxNzI4ODEwNTMxfQ.Tsn2xeQ0GJAD8gqcOEi7nZkOEirK0KWzamCTEdtJ2Eo';
 
-const getPeriodeData = async () => {
+const getPriceByMenuId = async (menuId) => {
     try {
-        const response = await axios.get(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PERIODE}`, {
+        const response = await axios.get(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PRICE}?id_menu=${menuId}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -20,7 +20,7 @@ const getPeriodeData = async () => {
 
 const savePeriodeData = async (formData) => {
     try {
-        const response = await axios.post(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PERIODE}`, {
+        const response = await axios.post(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PRICE}`, {
             name: formData.periodeName,
             date_start: formData.periodeFrom,
             date_end: formData.periodeTo,
@@ -37,4 +37,4 @@ const savePeriodeData = async (formData) => {
     }
 };
 
-export { getPeriodeData, savePeriodeData };
+export { getPriceByMenuId, savePeriodeData };

@@ -1,4 +1,5 @@
 {
-    "API_BASE_URL": "http://localhost:3005",
-    "API_MASTER_PERIODE": "/api/v1/master/periode"
+    "API_BASE_URL": "http://203.175.10.169:3005",
+    "API_MASTER_PERIODE": "/api/v1/master/periode",
+    "API_MASTER_PRICE": "/api/v1/master/price"
 }
