@@ -10,11 +10,13 @@ import Coffee from "../Kasir/Coffee";
 import Drink from "../Kasir/Drink";
 import FormCreatePeriode from "../components/FormCreatePeriode";
 import FormChangePeriode from "../components/FormChangePeriode";
+import FormCategory from "../components/FormCategory";
 
 const Admin = () => {
     const [showProducts, setShowProducts] = useState("Breakfast");
     const [showHistory, setShowHistory] = useState(false);
     const [changePeriod, setChangePeriod] = useState(false);
+    const [formCategory, setFormCategory] = useState(false);
 
     const products = ((fallback) => {
         setShowProducts(fallback);
@@ -46,7 +48,7 @@ const Admin = () => {
                     <div className="mt-8">
                         <div className="lexend flex justify-between w-[60.5%]">
                             <h2>Category</h2>
-                            <button className="text-[12px] font-bold px-6 py-2 bg-white border border-black">Add Category</button>
+                            <button className="text-[12px] font-bold px-6 py-2 bg-white border border-black" onClick={e => setFormCategory(!formCategory)}>Add Category</button>
                         </div>
                         <SubMenu type={extractedPath} products={products} />
                         <div className="mt-3 flex justify-between w-[89%]">
@@ -70,8 +72,9 @@ const Admin = () => {
             </div>
 
             {/* Modal History */}
-            {showHistory && <FormCreatePeriode />}
-            {changePeriod && <FormChangePeriode />}
+            {showHistory && <FormCreatePeriode setShowHistory={setShowHistory}/>}
+            {changePeriod && <FormChangePeriode setChangePeriod={setChangePeriod}/>}
+            {formCategory && <FormCategory setFormCategory={setFormCategory} />}
             {/* Modal History */}
             
             </>

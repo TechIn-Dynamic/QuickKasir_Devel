@@ -73,10 +73,10 @@ const Login = () => {
                         <h1 className="text-center font-bold text-[30px]">Sign In</h1>
 
                         <form onSubmit={handleLogin} className="mt-10 grid gap-5">
-                            <input type="text" placeholder="Username" name="identifier" className="rounded-2xl pl-4 shadow-md w-full py-2" onChange={changeInput}/>
+                            <input type="text" placeholder="Username" name="identifier" className="rounded-2xl pl-4 shadow-md w-full py-2" onChange={changeInput} required/>
                             
                             <div className="relative flex">
-                                <input type={showPass ? "text" : "password"} placeholder="Password" id="password" name="password" className="rounded-2xl pl-4 shadow-md w-full py-2" onChange={changeInput}/>
+                                <input type={showPass ? "text" : "password"} placeholder="Password" id="password" name="password" className="rounded-2xl pl-4 shadow-md w-full py-2" onChange={changeInput} required/>
                                 <button type="button" onClick={e => setShowPass(!showPass)}>
                                     {!showPass ? <img src="images/eyes.png" alt="eyes" width={40} className="absolute right-0 bottom-0 pb-1 pr-2" /> : ''}
                                     {showPass ? <img src="images/eye-no.png" alt="eyes" width={40} className="absolute right-0 bottom-0 pb-1 pr-2" /> : ''}

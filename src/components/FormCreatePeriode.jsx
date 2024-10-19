@@ -4,7 +4,7 @@ import { deletePeriodeData, getPeriodeData, savePeriodeData, updatePeriodeData }
 import iconRemove from '../assets/images-removebg-preview 1.png';
 import iconCentang from '../assets/right-correct-checklist-icon-3d-free-png 1.png';
 
-const FormCreatePeriode = ({ isFormOpen = true }) => {
+const FormCreatePeriode = ({ setShowHistory }) => {
     const [formData, setFormData] = useState({
         periodeName: "",
         periodeFrom: formatDateToInput(new Date()),
@@ -12,7 +12,6 @@ const FormCreatePeriode = ({ isFormOpen = true }) => {
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const [isOpen, setIsOpen] = useState(isFormOpen);
     const [listPeriode, setListPeriode] = useState([]);
     const [editIndex, setEditIndex] = useState(null);
     const [editField, setEditField] = useState(null);
@@ -163,15 +162,13 @@ const FormCreatePeriode = ({ isFormOpen = true }) => {
         }
     };
 
-
-    if (!isOpen) return null;
     return (
         <div style={styles.modalOverlay}>
             <div style={styles.modalContent}>
                 <h1 style={styles.title}>Price Periode</h1>
                 {error && <div style={{ color: 'red' }}>{error}</div>}
                 <button
-                    onClick={(e) => setIsOpen(false)}
+                    onClick={(e) => setShowHistory(false)}
                     style={{
                         position: 'absolute',
                         top: '10px',

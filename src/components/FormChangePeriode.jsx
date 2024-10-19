@@ -3,7 +3,7 @@ import formatDateToInput from "../helpers/HelperFunction";
 import { deletePeriodeData, getPeriodeData, savePeriodeData, updatePeriodeData } from "../services/MasterPeriodeService";
 import iconCentang from '../assets/right-correct-checklist-icon-3d-free-png 1.png';
 
-const FormChangePeriode = ({ isFormOpen = true }) => {
+const FormChangePeriode = ({ setChangePeriod }) => {
     const [formData, setFormData] = useState({
         periodeName: "",
         periodeFrom: formatDateToInput(new Date()),
@@ -11,7 +11,6 @@ const FormChangePeriode = ({ isFormOpen = true }) => {
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
-    const [isOpen, setIsOpen] = useState(isFormOpen);
     const [listPeriode, setListPeriode] = useState([]);
     const [editIndex, setEditIndex] = useState(null);
     const [editField, setEditField] = useState(null);
@@ -118,15 +117,13 @@ const FormChangePeriode = ({ isFormOpen = true }) => {
         }
     };
 
-
-    if (!isOpen) return null;
     return (
         <div style={styles.modalOverlay}>
             <div style={styles.modalContent}>
                 <h1 style={styles.title}>Price Periode</h1>
                 {error && <div style={{ color: 'red' }}>{error}</div>}
                 <button
-                    onClick={(e) => setIsOpen(false)}
+                    onClick={(e) => setChangePeriod(false)}
                     style={{
                         position: 'absolute',
                         top: '10px',
