@@ -6,7 +6,7 @@ export default function Sidebar() {
         <> 
             <div className="w-[20%] md:w-[8%] text-center h-screen bg-white p-2">
                 <div className="grid place-items-center gap-2 pt-4">
-                    <img src="images/logo_tech.png" alt="logo" className="w-[60%]" />
+                    <img src="images/logo_tech.png" alt="logo" className="w-[30%]" />
                     <h2 className="lexend text-[40%]">QuickKasir</h2>
                 </div>
 
