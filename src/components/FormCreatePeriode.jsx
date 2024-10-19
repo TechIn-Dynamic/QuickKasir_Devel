@@ -56,6 +56,31 @@ const FormCreatePeriode = ({ isFormOpen = true }) => {
         setListPeriode(updatedPeriode);
     };
 
+    const handleStatusChange = async (index, field, value) => {
+        const updatedPeriode = [...listPeriode];
+        const newDataIndex = updatedPeriode.findIndex(e => e.id == index);
+
+        updatedPeriode[newDataIndex][field] = value;
+        setListPeriode(updatedPeriode);
+
+        const newData = updatedPeriode[newDataIndex];
+
+        setLoading(true);
+
+        try {
+            await updatePeriodeData(newData);
+            await fetchMasterData();
+        } catch (error) {
+            console.error("Error:", error.response ? error.response.data : error.message);
+            setError(error.response.data.message);
+        } finally {
+            setLoading(false);
+        }
+
+        setEditIndex(null);
+        setEditField(null);
+    };
+
     const handleDoubleClick = (index, field) => {
         setEditIndex(index);
         setEditField(field);
@@ -271,10 +296,14 @@ const FormCreatePeriode = ({ isFormOpen = true }) => {
                                             </button>
                                         </td>
                                         <td style={{ ...styles.td, ...styles.actionColumn }}>
-                                            {periode.status && (
+                                            {periode.status ? (
                                                 <button>
                                                     <img src={iconCentang} alt="Centang Icon" />
                                                 </button>
+                                            ) : (
+                                                <input type="checkbox"
+                                                    onChange={(e) => handleStatusChange(periode.id, 'status', e.target.checked)}
+                                                />
                                             )}
                                         </td>
                                     </tr>
