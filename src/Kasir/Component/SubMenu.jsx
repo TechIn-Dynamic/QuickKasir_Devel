@@ -30,7 +30,7 @@ export default function SubMenu(props) {
     
     return (
         <>
-            <div className="mt-5 h-[150px] md:h-[150px] w-full flex gap-3 gap-x-8 flex-wrap">
+            <div className={props.type == "admin" ? "overflow-scroll flex-wrap mt-5 h-100% md:h-100% w-full flex gap-3 gap-x-8 flex-wrap" : "mt-5 h-[150px] md:h-[100px] w-full flex gap-3 gap-x-8 flex-wrap"}>
                 {listMen}
             </div>
         </>

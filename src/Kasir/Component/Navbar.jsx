@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Sidebar from "./Sidebar";
 
-export default function Navbar() {
+export default function Navbar(props) {
 
     const [showSearch, setShowSearch] = useState(false);
 
@@ -11,11 +11,14 @@ export default function Navbar() {
             document.getElementById("search").value = "";
         }
     }
-    
+     
     return (
         <>
             <div className="w-full h-[60px] flex justify-between bg-white px-3 md:px-10 shadow-md p-4">
-                <div className="flex items-center">
+                <div className={props.type == "admin" ? "flex items-center text-[25px] lexend" : " hidden"}>
+                    Quick <img src="images/flash.png" alt="" width={20}/> Cashier
+                </div>
+                <div className={props.type == "admin" ? "hidden" : "flex items-center"}>
                     <div className="text-1xl bg-[#f2f1f2] p-1 md:p-2 md:p-[3.7px] rounded-tl-md rounded-bl-md" onClick={(e) => setShowSearch(!showSearch)}>
                         <i className="fa-solid fa-magnifying-glass"></i>
                     </div>
@@ -24,7 +27,7 @@ export default function Navbar() {
 
                 <div className="flex gap-1 md:gap-4 p-2 items-center">
                     <div className="text-xl md:text-2xl">
-                        <i className="fa-solid fa-bell"></i>
+                        {/* <i className="fa-solid fa-bell"></i> */}
                     </div>
                     <div className=" md:pr-0">
                         <div className="rounded-full w-8 h-8 md:w-12  md:h-12 bg-blue-500">

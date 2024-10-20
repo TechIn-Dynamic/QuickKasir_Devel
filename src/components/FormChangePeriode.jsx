@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
 import formatDateToInput from "../helpers/HelperFunction";
 import { deletePeriodeData, getPeriodeData, savePeriodeData, updatePeriodeData } from "../services/MasterPeriodeService";
-import iconRemove from '../assets/images-removebg-preview 1.png';
 import iconCentang from '../assets/right-correct-checklist-icon-3d-free-png 1.png';
 
-const FormCreatePeriode = ({ setShowHistory }) => {
+const FormChangePeriode = ({ setChangePeriod }) => {
     const [formData, setFormData] = useState({
         periodeName: "",
         periodeFrom: formatDateToInput(new Date()),
@@ -53,31 +52,6 @@ const FormCreatePeriode = ({ setShowHistory }) => {
 
         updatedPeriode[newDataIndex][field] = value;
         setListPeriode(updatedPeriode);
-    };
-
-    const handleStatusChange = async (index, field, value) => {
-        const updatedPeriode = [...listPeriode];
-        const newDataIndex = updatedPeriode.findIndex(e => e.id == index);
-
-        updatedPeriode[newDataIndex][field] = value;
-        setListPeriode(updatedPeriode);
-
-        const newData = updatedPeriode[newDataIndex];
-
-        setLoading(true);
-
-        try {
-            await updatePeriodeData(newData);
-            await fetchMasterData();
-        } catch (error) {
-            console.error("Error:", error.response ? error.response.data : error.message);
-            setError(error.response.data.message);
-        } finally {
-            setLoading(false);
-        }
-
-        setEditIndex(null);
-        setEditField(null);
     };
 
     const handleDoubleClick = (index, field) => {
@@ -143,32 +117,13 @@ const FormCreatePeriode = ({ setShowHistory }) => {
         }
     };
 
-    const handleDelete = async (id) => {
-        const confirmed = window.confirm("Are you sure you want to delete this periode?");
-
-        if (!confirmed)
-            return;
-
-        setLoading(true);
-
-        try {
-            await deletePeriodeData(id);
-            await fetchMasterData();
-        } catch (error) {
-            console.error("Error:", error.response ? error.response.data : error.message);
-            setError(error.response ? error.response.data.message : error.message);
-        } finally {
-            setLoading(false);
-        }
-    };
-
     return (
         <div style={styles.modalOverlay}>
             <div style={styles.modalContent}>
                 <h1 style={styles.title}>Price Periode</h1>
                 {error && <div style={{ color: 'red' }}>{error}</div>}
                 <button
-                    onClick={(e) => setShowHistory(false)}
+                    onClick={(e) => setChangePeriod(false)}
                     style={{
                         position: 'absolute',
                         top: '10px',
@@ -182,13 +137,13 @@ const FormCreatePeriode = ({ setShowHistory }) => {
                     x
                 </button>
 
-                <form onSubmit={handleSubmit} style={styles.form}>
+                <form onSubmit={handleSubmit} className="flex flex-wrap flexDirection-row">
                     <div style={styles.formGroup}>
-                        <label htmlFor="periodeName" style={styles.label}>Header Name</label>
+                        <label htmlFor="nameProduct" style={styles.label}>Name Product</label>
                         <input
                             type="text"
-                            name="periodeName"
-                            value={formData.periodeName}
+                            name="nameProduct"
+                            value={formData.nameProduct}
                             onChange={handleFormHeaderChange}
                             style={styles.input}
                             autoComplete="off"
@@ -196,36 +151,36 @@ const FormCreatePeriode = ({ setShowHistory }) => {
                         />
                     </div>
                     <div style={styles.formGroup}>
-                        <label htmlFor="periodeFrom" style={styles.label}>Start Date</label>
+                        <label htmlFor="imgProduct" style={styles.label}>Image</label>
                         <input
-                            type="date"
-                            name="periodeFrom"
-                            value={formData.periodeFrom}
+                            type="file"
+                            name="imgProduct"
+                            value={formData.imgProduct}
                             onChange={handleFormHeaderChange}
                             style={styles.input}
+                            autoComplete="off"
                             required
                         />
                     </div>
-                    <div style={styles.formGroup}>
-                        <label htmlFor="periodeTo" style={styles.label}>End Date</label>
-                        <input
-                            type="date"
-                            name="periodeTo"
-                            value={formData.periodeTo}
+                    <div style={styles.formGroup} className="w-full grid">
+                        <label htmlFor="description" style={styles.label}>Description</label>
+                        <textarea
+                            className="w-full mt-2 border border-black px-2"
+                            name="description"
                             onChange={handleFormHeaderChange}
-                            style={styles.input}
-                            required
-                        />
+                        >{formData.description}</textarea>
                     </div>
-                    <div style={styles.formGroup}>
+
+                    <div className="w-[100%] text-end p-2 flex justify-end">
                         <button
                             type="submit"
-                            style={styles.button}
+                            className="px-2 py-1 bg-white shadow-md rounded-md text-[12px] font-bold w-[20%] h-full"
                             disabled={loading}
                         >
-                            Add
+                            Add Price
                         </button>
                     </div>
+
                 </form>
 
                 <hr style={styles.hr} />
@@ -234,10 +189,10 @@ const FormCreatePeriode = ({ setShowHistory }) => {
                     <table style={styles.table}>
                         <thead style={styles.thead}>
                             <tr>
-                                <th style={styles.th}>Header Name</th>
-                                <th style={styles.th}>Start Date</th>
-                                <th style={styles.th}>End Date</th>
-                                <th style={{ ...styles.th, ...styles.actionColumn }}>Del</th>
+                                <th style={styles.th}>Header Period</th>
+                                <th style={styles.th}>Start Period</th>
+                                <th style={styles.th}>End Period</th>
+                                <th style={styles.th}>Price</th>
                                 <th style={{ ...styles.th, ...styles.actionColumn }}>#</th>
                             </tr>
                         </thead>
@@ -288,19 +243,14 @@ const FormCreatePeriode = ({ setShowHistory }) => {
                                             )}
                                         </td>
                                         <td style={{ ...styles.td, ...styles.actionColumn }}>
-                                            <button>
-                                                <img src={iconRemove} alt="Remove Icon" onClick={() => handleDelete(periode.id)} />
-                                            </button>
+                                            {periode.price}
+                                            Rp. 12999
                                         </td>
                                         <td style={{ ...styles.td, ...styles.actionColumn }}>
-                                            {periode.status ? (
+                                            {periode.status && (
                                                 <button>
                                                     <img src={iconCentang} alt="Centang Icon" />
                                                 </button>
-                                            ) : (
-                                                <input type="checkbox"
-                                                    onChange={(e) => handleStatusChange(periode.id, 'status', e.target.checked)}
-                                                />
                                             )}
                                         </td>
                                     </tr>
@@ -331,7 +281,7 @@ const styles = {
         backgroundColor: '#FFFFFF',
         padding: '20px',
         width: '544px',
-        height: '518px',
+        height: '618px',
         boxShadow: '0 4px 8px rgba(0, 0, 0, 0.2)',
         position: 'relative'
     },
@@ -348,10 +298,11 @@ const styles = {
         color: 'black',
     },
     input: {
-        width: '129px',
+        width: '200px',
         border: '1px solid black',
         boxSizing: 'border-box',
-        padding: '5px'
+        padding: '5px',
+        height: '40px'
     },
     button: {
         color: 'black',
@@ -398,12 +349,14 @@ const styles = {
         textAlign: 'center',
         backgroundColor: '#AFAFAF',
         fontWeight: '500',
+        fontSize: '10px'
     },
     td: {
         border: '1px solid black',
         padding: '3px',
         textAlign: 'center',
         verticalAlign: 'middle',
+        fontSize: "10px"
     },
     tr: {
         display: 'table',
@@ -411,8 +364,8 @@ const styles = {
         tableLayout: 'fixed',
     },
     actionColumn: {
-        width: '50px',
+        width: '100px',
     },
 };
 
-export default FormCreatePeriode;
+export default FormChangePeriode;
