@@ -1,7 +1,7 @@
 import axios from "axios";
 import CONFIG from "../config/config.json";
 
-const token = localStorage.getItem("token") || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibGV2ZWwiOiJhZG1pbiIsImlhdCI6MTcyODgxMTgxNCwiZXhwIjoxNzI5NDE2NjE0fQ.xpNBfFroOU5yNZE7U6gVpkZ6Slr3m4PnVZhXQOXU9Ts';
+const token = localStorage.getItem("token");
 
 const getPeriodeData = async () => {
     try {
