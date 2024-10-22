@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import AlertArchive from "../components/AlertArchive";
 
 export default function Breakfast() {
+
+    const [showModal, setShowModal] = useState(false);
 
     const data = [
         {
@@ -41,7 +44,7 @@ export default function Breakfast() {
     ];
 
     const actionProduct= (e, i) => {
-        console.log(e +" => " +i);
+        setShowModal(true);
     }
     
     return (
@@ -78,6 +81,9 @@ export default function Breakfast() {
                     </div>
                 ))}
             </div>
+
+            {showModal && <AlertArchive setShowModal={setShowModal} /> }
+
         </>
     );
     
