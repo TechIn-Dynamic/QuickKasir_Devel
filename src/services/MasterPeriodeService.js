@@ -3,7 +3,7 @@ import CONFIG from "../config/config.json";
 
 const token = localStorage.getItem("token");
 
-const getPeriodeData = async () => {
+export const getPeriode = async () => {
     try {
         const response = await axios.get(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PERIODE}`, {
             headers: {
@@ -17,9 +17,9 @@ const getPeriodeData = async () => {
     }
 };
 
-const savePeriodeData = async (payload) => {
+export const getPeriodeById = async (id) => {
     try {
-        const response = await axios.post(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PERIODE}`, payload, {
+        const response = await axios.get(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PERIODE}/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -31,9 +31,9 @@ const savePeriodeData = async (payload) => {
     }
 };
 
-const updatePeriodeData = async (payload) => {
+export const savePeriode = async (requestBody) => {
     try {
-        const response = await axios.put(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PERIODE}/${payload.id}`, payload, {
+        const response = await axios.post(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PERIODE}`, requestBody, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -45,7 +45,21 @@ const updatePeriodeData = async (payload) => {
     }
 };
 
-const deletePeriodeData = async (id) => {
+export const updatePeriode = async (requestBody) => {
+    try {
+        const response = await axios.put(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PERIODE}/${requestBody.id}`, requestBody, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        return response.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+export const deletePeriode = async (id) => {
     try {
         const response = await axios.delete(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PERIODE}/${id}`, {
             headers: {
@@ -58,5 +72,3 @@ const deletePeriodeData = async (id) => {
         throw error;
     }
 };
-
-export { getPeriodeData, savePeriodeData, updatePeriodeData, deletePeriodeData };

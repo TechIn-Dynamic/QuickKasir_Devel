@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import formatDateToInput from "../helpers/HelperFunction";
-import { deletePeriodeData, getPeriodeData, savePeriodeData, updatePeriodeData } from "../services/MasterPeriodeService";
+import { deletePeriode, getPeriode, savePeriode, updatePeriode } from "../services/MasterPeriodeService";
 import iconRemove from '../assets/images-removebg-preview 1.png';
 import iconCentang from '../assets/right-correct-checklist-icon-3d-free-png 1.png';
 
@@ -18,7 +18,7 @@ const FormCreatePeriode = ({ setShowHistory }) => {
 
 
     const fetchMasterData = async () => {
-        const getPeriodeRes = await getPeriodeData();
+        const getPeriodeRes = await getPeriode();
         setListPeriode(getPeriodeRes.data);
 
     };
@@ -67,7 +67,7 @@ const FormCreatePeriode = ({ setShowHistory }) => {
         setLoading(true);
 
         try {
-            await updatePeriodeData(newData);
+            await updatePeriode(newData);
             await fetchMasterData();
         } catch (error) {
             const errorMessage = error.response ? error.response.data : error.message;
@@ -99,7 +99,7 @@ const FormCreatePeriode = ({ setShowHistory }) => {
         setLoading(true);
 
         try {
-            await updatePeriodeData(newData);
+            await updatePeriode(newData);
             await fetchMasterData();
         } catch (error) {
             const errorMessage = error.response ? error.response.data : error.message;
@@ -131,7 +131,7 @@ const FormCreatePeriode = ({ setShowHistory }) => {
         setLoading(true);
 
         try {
-            await savePeriodeData({
+            await savePeriode({
                 name: formData.periodeName,
                 date_start: formData.periodeFrom,
                 date_end: formData.periodeTo,
@@ -155,7 +155,7 @@ const FormCreatePeriode = ({ setShowHistory }) => {
         setLoading(true);
 
         try {
-            await deletePeriodeData(id);
+            await deletePeriode(id);
             await fetchMasterData();
         } catch (error) {
             const errorMessage = error.response ? error.response.data : error.message;
