@@ -3,9 +3,9 @@ import CONFIG from "../config/config.json";
 
 const token = localStorage.getItem("token");
 
-export const getPrice = async () => {
+export const getSchedule = async () => {
     try {
-        const response = await axios.get(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PRICE}`, {
+        const response = await axios.get(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_SCHEDULE}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -17,9 +17,9 @@ export const getPrice = async () => {
     }
 };
 
-export const getPriceById = async (id) => {
+export const getScheduleById = async (id) => {
     try {
-        const response = await axios.get(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PRICE}/${id}`, {
+        const response = await axios.get(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_SCHEDULE}/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -31,9 +31,9 @@ export const getPriceById = async (id) => {
     }
 };
 
-export const savePrice = async (requestBody) => {
+export const saveSchedule = async (requestBody) => {
     try {
-        const response = await axios.post(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PRICE}`, requestBody, {
+        const response = await axios.post(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_SCHEDULE}`, requestBody, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -45,9 +45,9 @@ export const savePrice = async (requestBody) => {
     }
 };
 
-export const updatePrice = async (requestBody) => {
+export const updateSchedule = async (requestBody) => {
     try {
-        const response = await axios.put(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PRICE}/${requestBody.id}`, requestBody, {
+        const response = await axios.put(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_SCHEDULE}/${requestBody.id}`, requestBody, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
@@ -59,9 +59,9 @@ export const updatePrice = async (requestBody) => {
     }
 };
 
-export const deletePrice = async (id) => {
+export const deleteSchedule = async (id) => {
     try {
-        const response = await axios.delete(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_PRICE}/${id}`, {
+        const response = await axios.delete(`${CONFIG.API_BASE_URL}${CONFIG.API_MASTER_SCHEDULE}/${id}`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },

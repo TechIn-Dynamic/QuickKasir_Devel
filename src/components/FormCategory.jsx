@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import formatDateToInput from "../helpers/HelperFunction";
 import iconCentang from '../assets/right-correct-checklist-icon-3d-free-png 1.png';
-import { getAllCategory } from "../services/MasterCategory";
+import { getCategory } from "../services/MasterCategoryService";
 
 const FormCategory = ({ setFormCategory }) => {
     const [formData, setFormData] = useState({
@@ -15,8 +15,8 @@ const FormCategory = ({ setFormCategory }) => {
 
 
     const fetchMasterCategory = async () => {
-        const dataPeriode = await getAllCategory();
-        setListCategory(dataPeriode);
+        const getCategoryRes = await getCategory();
+        setListCategory(getCategoryRes.data);
 
     };
 

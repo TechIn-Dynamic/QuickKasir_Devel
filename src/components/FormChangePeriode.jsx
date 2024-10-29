@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import formatDateToInput from "../helpers/HelperFunction";
-import { deletePeriodeData, getPeriodeData, savePeriodeData, updatePeriodeData } from "../services/MasterPeriodeService";
+import { deletePeriode, getPeriode, savePeriode, updatePeriode } from "../services/MasterPeriodeService";
 import iconCentang from '../assets/right-correct-checklist-icon-3d-free-png 1.png';
 
 const FormChangePeriode = ({ setChangePeriod }) => {
@@ -17,8 +17,8 @@ const FormChangePeriode = ({ setChangePeriod }) => {
 
 
     const fetchMasterData = async () => {
-        const dataPeriode = await getPeriodeData();
-        setListPeriode(dataPeriode);
+        const getPeriodeRes = await getPeriode();
+        setListPeriode(getPeriodeRes.data);
 
     };
 
@@ -72,7 +72,7 @@ const FormChangePeriode = ({ setChangePeriod }) => {
         setLoading(true);
 
         try {
-            await updatePeriodeData(newData);
+            await updatePeriode(newData);
             await fetchMasterData();
         } catch (error) {
             console.error("Error:", error.response ? error.response.data : error.message);
@@ -103,7 +103,7 @@ const FormChangePeriode = ({ setChangePeriod }) => {
         setLoading(true);
 
         try {
-            await savePeriodeData({
+            await savePeriode({
                 name: formData.periodeName,
                 date_start: formData.periodeFrom,
                 date_end: formData.periodeTo,
