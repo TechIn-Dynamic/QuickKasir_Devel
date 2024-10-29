@@ -11,9 +11,8 @@ const getPeriodeData = async () => {
             },
         });
 
-        return response.data.data;
+        return response.data;
     } catch (error) {
-        console.error("Error fetching periode data:", error.response ? error.response.data : error.message);
         throw error;
     }
 };
@@ -26,9 +25,8 @@ const savePeriodeData = async (payload) => {
             },
         });
 
-        return response.data.data;
+        return response.data;
     } catch (error) {
-        console.error("Error saving periode data:", error.response ? error.response.data : error.message);
         throw error;
     }
 };
@@ -41,9 +39,8 @@ const updatePeriodeData = async (payload) => {
             },
         });
 
-        return response.data.data;
+        return response.data;
     } catch (error) {
-        console.error("Error updating periode data:", error.response ? error.response.data : error.message);
         throw error;
     }
 };
@@ -56,9 +53,8 @@ const deletePeriodeData = async (id) => {
             },
         });
 
-        return response.data.data;
+        return response.data;
     } catch (error) {
-        console.error("Error deleting periode data:", error.response ? error.response.data : error.message);
         throw error;
     }
 };

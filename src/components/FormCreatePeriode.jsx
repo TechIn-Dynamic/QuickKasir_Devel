@@ -18,8 +18,8 @@ const FormCreatePeriode = ({ setShowHistory }) => {
 
 
     const fetchMasterData = async () => {
-        const dataPeriode = await getPeriodeData();
-        setListPeriode(dataPeriode);
+        const getPeriodeRes = await getPeriodeData();
+        setListPeriode(getPeriodeRes.data);
 
     };
 
@@ -70,8 +70,9 @@ const FormCreatePeriode = ({ setShowHistory }) => {
             await updatePeriodeData(newData);
             await fetchMasterData();
         } catch (error) {
-            console.error("Error:", error.response ? error.response.data : error.message);
-            setError(error.response.data.message);
+            const errorMessage = error.response ? error.response.data : error.message;
+            console.error("Error:", errorMessage);
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -101,8 +102,9 @@ const FormCreatePeriode = ({ setShowHistory }) => {
             await updatePeriodeData(newData);
             await fetchMasterData();
         } catch (error) {
-            console.error("Error:", error.response ? error.response.data : error.message);
-            setError(error.response.data.message);
+            const errorMessage = error.response ? error.response.data : error.message;
+            console.error("Error:", errorMessage);
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -136,8 +138,9 @@ const FormCreatePeriode = ({ setShowHistory }) => {
             });
             await fetchMasterData();
         } catch (error) {
-            console.error("Error:", error.response ? error.response.data : error.message);
-            setError(error.response.data.message);
+            const errorMessage = error.response ? error.response.data : error.message;
+            console.error("Error:", errorMessage);
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }
@@ -155,8 +158,9 @@ const FormCreatePeriode = ({ setShowHistory }) => {
             await deletePeriodeData(id);
             await fetchMasterData();
         } catch (error) {
-            console.error("Error:", error.response ? error.response.data : error.message);
-            setError(error.response ? error.response.data.message : error.message);
+            const errorMessage = error.response ? error.response.data : error.message;
+            console.error("Error:", errorMessage);
+            setError(errorMessage);
         } finally {
             setLoading(false);
         }
