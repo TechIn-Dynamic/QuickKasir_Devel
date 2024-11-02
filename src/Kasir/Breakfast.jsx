@@ -1,9 +1,13 @@
 import React, { useEffect, useState } from "react";
 import AlertArchive from "../components/AlertArchive";
+import UpdateMenu from "../components/UpdateMenu";
 
 export default function Breakfast() {
 
     const [showModal, setShowModal] = useState(false);
+    const [showModalEdit, setShowModalEdit] = useState(false);
+
+    
 
     const data = [
         {
@@ -44,7 +48,11 @@ export default function Breakfast() {
     ];
 
     const actionProduct= (e, i) => {
-        setShowModal(true);
+        if(e == 1){
+            setShowModal(true);
+        }else{
+            setShowModalEdit(true);
+        }
     }
     
     return (
@@ -83,6 +91,7 @@ export default function Breakfast() {
             </div>
 
             {showModal && <AlertArchive setShowModal={setShowModal} /> }
+            {showModalEdit && <UpdateMenu setShowModalEdit={setShowModalEdit} /> }
 
         </>
     );

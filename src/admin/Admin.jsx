@@ -4,10 +4,6 @@ import Navbar from "../Kasir/Component/Navbar";
 import ListMenus from "../Kasir/Component/ListMenus";
 import SubMenu from "../Kasir/Component/SubMenu";
 import Breakfast from "../Kasir/Breakfast";
-import Lunch from "../Kasir/Lunch";
-import Dinner from "../Kasir/Dinner";
-import Coffee from "../Kasir/Coffee";
-import Drink from "../Kasir/Drink";
 import FormCreatePeriode from "../components/FormCreatePeriode";
 import FormChangePeriode from "../components/FormChangePeriode";
 import FormCategory from "../components/FormCategory";
@@ -20,6 +16,7 @@ const Admin = () => {
 
     const products = ((fallback) => {
         setShowProducts(fallback);
+        console.log(fallback);
     })
 
     const pathname  = window.location.pathname;
@@ -34,10 +31,6 @@ const Admin = () => {
     }
 
     extractedPath = extractedPath?.startsWith("/") ? extractedPath.substring(1) : extractedPath;
-    
-
-    console.log("Path yang diekstrak:", extractedPath);
-
  
     return (
             <>
@@ -62,11 +55,7 @@ const Admin = () => {
                                 </button>
                             </div>
                         </div>
-                        {showProducts === "Breakfast" &&  <Breakfast />}
-                            {showProducts === "Lunch" &&  <Lunch />}
-                            {showProducts === "Dinner" &&  <Dinner />}
-                            {showProducts === "Coffee" &&  <Coffee />}
-                            {showProducts === "Drinks" &&  <Drink />}
+                        <Breakfast   />
                     </div>
                 </div>
             </div>

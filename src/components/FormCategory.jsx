@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import formatDateToInput from "../helpers/HelperFunction";
 import iconCentang from '../assets/right-correct-checklist-icon-3d-free-png 1.png';
-import { getCategory } from "../services/MasterCategoryService";
+import { getCategory, saveCategory } from "../services/MasterCategoryService";
 
 const FormCategory = ({ setFormCategory }) => {
     const [formData, setFormData] = useState({
-        periodeName: "",
-        periodeFrom: formatDateToInput(new Date()),
-        periodeTo: formatDateToInput(new Date()),
+        name: "",
     });
     const [error, setError] = useState("");
     const [loading, setLoading] = useState(false);
@@ -17,7 +15,6 @@ const FormCategory = ({ setFormCategory }) => {
     const fetchMasterCategory = async () => {
         const getCategoryRes = await getCategory();
         setListCategory(getCategoryRes.data);
-
     };
 
     useEffect(() => {
@@ -26,27 +23,31 @@ const FormCategory = ({ setFormCategory }) => {
 
 
     const validateForm = () => {
-        const { periodeName, periodeFrom, periodeTo } = formData;
-        if (!periodeName || !periodeFrom || !periodeTo) {
+        const { nameCategory } = formData;
+        if (!nameCategory) {
             setError("All fields are required");
             return false;
         }
 
+        console.log(formData);
+
         setError("");
-        return true;
+        // return true;
     };
+
+    
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        if (!validateForm()) return;
+        
+        // if (!validateForm()) return;
 
         setLoading(true);
 
         try {
             await saveCategory({
-                name: formData.periodeName,
-                img: formData.periodeFrom,
-                ppn: 0
+                formData
             });
             await fetchMasterCategory();
         } catch (error) {
@@ -58,14 +59,24 @@ const FormCategory = ({ setFormCategory }) => {
     };
 
     const changeInput = (e) => {
-        const { name, value } = e.target;
+        
+        if(e.target.name == "icon"){
+            const { name } = e.target;
+            const val = e.target.files && e.target.files[0]; // Memastikan file ada
 
-        setFormData(prevState => ({
-          ...prevState,
-          [name]: value,
-        }));
-
-        console.log(name + " => " + value);
+                setFormData(prevState => ({
+                    ...prevState,
+                    [name]: val || prevState[name], // Hanya perbarui jika file ada, jika tidak, tetap pakai nilai lama
+                }));
+              console.log("NAME CEK " + name);
+              
+        }else{
+            const { name, value } = e.target;
+            setFormData(prevState => ({
+                ...prevState,
+                [name]: value,
+              }));
+        }
 
     };
 
@@ -96,7 +107,7 @@ const FormCategory = ({ setFormCategory }) => {
                         <label htmlFor="nameProduct" style={styles.label}>Name Category</label>
                         <input
                             type="text"
-                            name="nameProduct"
+                            name="nameCategory"
                             value={formData.nameProduct}
                             onChange={changeInput}
                             className="w-[200px] h-[30px] mt-3 border border-black pl-3"
@@ -108,7 +119,6 @@ const FormCategory = ({ setFormCategory }) => {
                         <input
                             type="file"
                             name="icon"
-                            value={formData.icon}
                             onChange={changeInput}
                             className="w-[200px] p-2 h-full mt-1"
                             required
@@ -147,7 +157,9 @@ const FormCategory = ({ setFormCategory }) => {
                                             <span>{index + 1}</span>
                                         </td>
                                         <td style={styles.td}>
-                                         <span>{category.icon}</span>
+                                            <div className="flex border w-full align-centerx">
+                                                <img src={`data:image/jpeg;base64,${category.icon}`} alt="" width={30} className="border border-red-500"/>
+                                            </div>
                                         </td>
                                         <td style={styles.td}>
                                             <span>{category.name}</span>
