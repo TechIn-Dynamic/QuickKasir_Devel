@@ -4,28 +4,17 @@ import { Axios } from "axios";
 import { getCategory } from "../../services/MasterCategoryService";
 
 export default function SubMenu(props) {
-    const [active, setActive] = useState("Breakfast");
-    const [listCategory, setListCategory] = useState([]);
-
-    const fetchMasterCategory = async () => {
-        const getCategoryRes = await getCategory();
-        setActive(getCategoryRes.data[0].name)
-        setListCategory(getCategoryRes.data);
-    };
-
-    useEffect(() => {
-        fetchMasterCategory();
-    }, []);
-
-    const choseProduct = ((fallback) => {
-        setActive(fallback);
+    const choseProduct = ((fallback, name) => {
+        props.setActive(fallback);
         props.products(fallback);
+        props.setActive(name);
+        
     })
  
-    const listMen = listCategory.map((e, index) => {
+    const listMen = props.listCategory.map((e, index) => {
         let list = "";
-        if (e.name === active) {
-            list = <ListMenus key={index} name={e.name} icon={e.icon} choseProduct={choseProduct} active={active} idCategory={e.id} />;
+        if (e.name === props.active) {
+            list = <ListMenus key={index} name={e.name} icon={e.icon} choseProduct={choseProduct}  active={props.active} idCategory={e.id} />;
         } else {
             list = <ListMenus key={index} name={e.name} icon={e.icon} choseProduct={choseProduct} idCategory={e.id} />;
         }

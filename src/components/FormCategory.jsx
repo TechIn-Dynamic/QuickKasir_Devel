@@ -3,7 +3,7 @@ import formatDateToInput from "../helpers/HelperFunction";
 import iconCentang from '../assets/right-correct-checklist-icon-3d-free-png 1.png';
 import { getCategory, saveCategory } from "../services/MasterCategoryService";
 
-const FormCategory = ({ setFormCategory }) => {
+const FormCategory = (props) => {
     const [formData, setFormData] = useState({
         name: "",
     });
@@ -11,10 +11,15 @@ const FormCategory = ({ setFormCategory }) => {
     const [loading, setLoading] = useState(false);
     const [listCategory, setListCategory] = useState([]);
 
+    // const {setFormCategory} = props;
+
 
     const fetchMasterCategory = async () => {
         const getCategoryRes = await getCategory();
         setListCategory(getCategoryRes.data);
+        props.setFormCategory (getCategoryRes.data);
+        props.setResCat(!props.resCat);
+
     };
 
     useEffect(() => {
@@ -28,8 +33,6 @@ const FormCategory = ({ setFormCategory }) => {
             setError("All fields are required");
             return false;
         }
-
-        console.log(formData);
 
         setError("");
         // return true;
@@ -68,7 +71,6 @@ const FormCategory = ({ setFormCategory }) => {
                     ...prevState,
                     [name]: val || prevState[name], // Hanya perbarui jika file ada, jika tidak, tetap pakai nilai lama
                 }));
-              console.log("NAME CEK " + name);
               
         }else{
             const { name, value } = e.target;
@@ -88,7 +90,7 @@ const FormCategory = ({ setFormCategory }) => {
                 <h1 style={styles.title}> Add Category</h1>
                 {error && <div style={{ color: 'red' }}>{error}</div>}
                 <button
-                    onClick={(e) => setFormCategory(false)}
+                    onClick={(e) => props.setFormCategory(false)}
                     style={{
                         position: 'absolute',
                         top: '10px',
